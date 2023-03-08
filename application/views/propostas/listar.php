@@ -38,12 +38,16 @@
                 
               </div>
               <!-- /.card-header -->
-              <div class="card-body table-responsive p-0" style="height: 300px;">
+              <div class="card-body table-responsive p-0" style="height: 600px;">
                 <table class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>Data</th>
+                      <th>Cliente</th>
+                      <th>Vendedor</th>
+                      <th>Equipamentos</th>
+                      <th>Opções</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -51,6 +55,24 @@
                     <tr>
                       <td><?=$proposta->identificacao?></td>
                       <td><?=date('d/m/Y \à\s H:i:s', strtotime($proposta->dataCadastro))?></td>
+                      <td><?=$proposta->cliente_nome?></td>
+                      <td><?=$proposta->vendedor_nome?></td>
+                      <td><?=$proposta->equipamento_nome?></td>
+                      <td>
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default">Opções</button>
+                          <button type="button" class="btn btn-default dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                          <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          <div class="dropdown-menu" role="menu">
+                          <a class="dropdown-item" href="<?=base_url('propostas/visualizar/'.base64_encode($proposta->id))?>">Visualizar</a>
+                          <a class="dropdown-item" href="<?=base_url('propostas/editar/'.base64_encode($proposta->id))?>">Editar</a>
+                          <div class="dropdown-divider"></div>
+                          <a class="dropdown-item bg-danger" href="<?=base_url('propostas/deletar/'.base64_encode($proposta->id))?>" 
+                          onclick="return confirm('Tem certeza que deseja remover esta proposta, esta ação não é reversível.')">Remover</a>
+                          </div>
+                      </div>
+                      </td>
                     </tr>
                     <?php } ?>
                   </tbody>
