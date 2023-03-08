@@ -36,7 +36,7 @@
             <tr>
               <td>Equipamento</td>
               <td>
-              <select class="custom-select form-control-border" required>
+              <select class="custom-select form-control-border" id="select_equipamento" required ">
                 <option>Selecione</option>
 
                 <?php foreach($equipamentos AS $equipamento){ ?>
@@ -44,10 +44,70 @@
                 <?php } ?>
               </select>
               </td>
+              
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+              <td>Potência do UPS (kVA)</td>
+              <td>
+              <div class="input-group mb-3">
+                  <input type="number" class="form-control" require>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+
+              </tr>
+            </tbody>
+            <tbody>
+            <tr>
+              <td>Fator de potência aplicado a carga</td>
+              <td>
+              <div class="input-group mb-3">
+                  <input type="number" class="form-control" require>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+              <td>Rendimento</td>
+              <td>
+              <div class="input-group mb-3">
+                  <input type="number" class="form-control" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Número de baterias</td>
+              <td>
+              <select class="custom-select form-control-border" required>
+                <option>Selecione</option>
+
+                <?php foreach($banco_baterias AS $banco_bateria){ ?>
+                <option value="<?=$banco_bateria->equipamento?>"><?=$banco_bateria->quantidade?></option>
+                <?php } ?>
+
+              </select>
+              </td>
+              
             </tr>
             </tbody>
           </table>
-
+          
         </form>
 
     </section>
@@ -57,6 +117,15 @@
   
 
 <?php $this->load->view('footer') ?>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#select_equipamento').on('change', function(){
+    var valor = $(this).val();
+    $('#select_equipamento').load('Propostas/listar_banco_baterias/' + valor);
+  });
+});
+  
+</script>
 
 <?php if($alterado_com_sucesso){ ?>
     <link rel="stylesheet" href="<?=base_url('assets/plugins/toastr/toastr.min.css')?>">
@@ -69,4 +138,6 @@
           body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
         })
     </script>
+
+
  <?php } ?>
