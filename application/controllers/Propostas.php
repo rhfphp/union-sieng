@@ -2,42 +2,41 @@
 class Propostas extends CI_Controller {
     public function __construct() {
         parent::__construct();
+        
         $this->load->model('Propostas_model');
+        $this->load->model('Equipamentos_model');
+
+        $this->equipamentos = $this->Equipamentos_model->listar();
     }
 
     public function index() {
-        $data['propostas'] = $this->Propostas_model->listar_propostas();
+        $this->propostas = $this->Propostas_model->listar_propostas();
 
-        $this->load->view('propostas/listar', $data);
+        $this->load->view('propostas/listar', $this);
     }
 
-  	public function create() {
-      // Obtém o limite de clínicas do plano de assinatura atual do usuário
-      $clinic_limit = $this->plan_model->get_clinic_limit_by_user_id($this->session->userdata('user_id'));
-      // Obtém o número de clínicas existentes do usuário
-      $clinic_count = $this->clinic_model->count_clinics_by_user_id($this->session->userdata('user_id'));
+    public function nova() {
 
-      if ($clinic_count >= $clinic_limit) {
-          // O usuário atingiu o limite de clínicas
-          $this->session->set_flashdata('error', 'Você atingiu o limite de clínicas permitido pelo seu plano de assinatura.');
-          redirect('dashboard');
-      }
+        $this->alterado_com_sucesso = false;
+        
+        $this->load->view('propostas/layout-padrao-propostas', $this);
+    }
 
-      // Obtém os dados do formulário
-      $data = array(
-          'user_id' => $this->session->userdata('user_id'),
-          'name' => $this->input->post('name'),
-          'rent' => $this->input->post('rent'),
-          'condominium' => $this->input->post('condominium'),
-          // Adicione os demais campos de acordo com a estrutura da tabela "clinics"
-      );
+    public function editar($id) {
 
-      // Insere os dados na tabela "clinics"
-      $this->db->insert('clinics', $data);
-
-      // Redireciona o usuário para uma página de sucesso
-      redirect('clinics/success');
-  }
+        $this->alterado_com_sucesso = false;
+        
+       
+        if(!$_POST){
+            $id = base64_decode($id);
+            $this->proposta = $this->Propostas_model->proposta($id);
+        }else{
+            $this->alterado_com_sucesso = true;
+            $this->Propostas_model->atualizar($id);
+        }
+        
+        $this->load->view('propostas/layout-padrao-propostas', $this);
+    }
 
 
 
