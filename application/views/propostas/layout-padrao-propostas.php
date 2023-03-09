@@ -29,20 +29,20 @@
     <!-- Main content -->
     <section class="content">
 
-        <form action="#" method="post" class="card-body">
+        <form action="#" method="GET" class="card-body">
           
           <table class="table table-bordered">
             <tbody>
             <tr>
               <td>Equipamento</td>
               <td>
-              <select class="custom-select form-control-border" id="select_equipamento" required ">
-                <option>Selecione</option>
-
-                <?php foreach($equipamentos AS $equipamento){ ?>
-                <option value="<?=$equipamento->id?>"><?=$equipamento->nome?></option>
-                <?php } ?>
+              <select name="equipamento" class="custom-select form-control-border" onchange="form_submit(this)">
+                  <option>Selecione</option>
+                  <?php foreach($equipamentos AS $equipamento){ ?>
+                      <option value="<?=$equipamento->id?>" <?php if($this->input->get('equipamento') == $equipamento->id){echo'selected';}?>><?=$equipamento->nome?></option>
+                  <?php } ?>
               </select>
+
               </td>
               
             </tr>
@@ -52,7 +52,7 @@
               <td>Potência do UPS (kVA)</td>
               <td>
               <div class="input-group mb-3">
-                  <input type="number" class="form-control" require>
+                  <input name="potencia" type="number" value="<?=$this->input->get('potencia') ?>" onblur="form_submit(this)" class="form-control">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -66,7 +66,7 @@
               <td>Fator de potência aplicado a carga</td>
               <td>
               <div class="input-group mb-3">
-                  <input type="number" class="form-control" require>
+                  <input name="fator_potencia" value="<?=$this->input->get('fator_potencia') ?>" onblur="form_submit(this)" type="number" class="form-control">
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -80,7 +80,7 @@
               <td>Rendimento</td>
               <td>
               <div class="input-group mb-3">
-                  <input type="number" class="form-control" readonly>
+                  <input name="rendimento" value="<?=$this->input->get('rendimento') ?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -94,13 +94,12 @@
             <tr>
               <td>Número de baterias</td>
               <td>
-              <select class="custom-select form-control-border" required>
+              <select name="numero_de_baterias" onchange="form_submit(this)" class="custom-select form-control-border">
                 <option>Selecione</option>
 
-                <?php foreach($banco_baterias AS $banco_bateria){ ?>
-                <option value="<?=$banco_bateria->equipamento?>"><?=$banco_bateria->quantidade?></option>
+                <?php foreach($quantidade_de_baterias AS $qdb){ ?>
+                  <option value="<?=$qdb->quantidade?>" <?php if($this->input->get('numero_de_baterias') == $qdb->quantidade){echo'selected';}?>><?=$qdb->quantidade?></option>
                 <?php } ?>
-
               </select>
               </td>
               
@@ -117,27 +116,25 @@
   
 
 <?php $this->load->view('footer') ?>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('#select_equipamento').on('change', function(){
-    var valor = $(this).val();
-    $('#select_equipamento').load('Propostas/listar_banco_baterias/' + valor);
-  });
-});
-  
-</script>
+
 
 <?php if($alterado_com_sucesso){ ?>
-    <link rel="stylesheet" href="<?=base_url('assets/plugins/toastr/toastr.min.css')?>">
-    <script src="<?=base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
-    <script type="text/javascript">
-      $(document).Toasts('create', {
-          class: 'bg-success',
-          title: 'Toast Title',
-          subtitle: 'Subtitle',
-          body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-        })
-    </script>
-
-
+<link rel="stylesheet" href="<?=base_url('assets/plugins/toastr/toastr.min.css')?>">
+<script src="<?=base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
+<script type="text/javascript">
+  $(document).Toasts('create', {
+      class: 'bg-success',
+      title: 'Toast Title',
+      subtitle: 'Subtitle',
+      body: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+    })
+</script>
  <?php } ?>
+
+<script type="text/javascript">
+function form_submit(t){
+  //$('.preloader').css('height', '100%');
+  //$('.animation__shake').show();
+  t.form.submit();
+}
+</script>

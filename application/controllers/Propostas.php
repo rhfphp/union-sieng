@@ -5,7 +5,7 @@ class Propostas extends CI_Controller {
         
         $this->load->model('Propostas_model');
         $this->load->model('Equipamentos_model');
-        $this->load->model('Banco_de_baterias_model');
+        $this->load->model('Baterias_model');
        // $this->load->model('Banco_de_baterias_model');
 
         $this->equipamentos = $this->Equipamentos_model->listar();
@@ -21,6 +21,8 @@ class Propostas extends CI_Controller {
     public function nova() {
 
         $this->alterado_com_sucesso = false;
+
+        $this->quantidade_de_baterias = $this->Baterias_model->listar_banco_baterias( $this->input->get('equipamento') );
         
         $this->load->view('propostas/layout-padrao-propostas', $this);
     }
@@ -40,18 +42,6 @@ class Propostas extends CI_Controller {
         
         $this->load->view('propostas/layout-padrao-propostas', $this);
     }
-
-
-    public function listar_banco_baterias($id) {
-
-        //$this->alterado_com_sucesso = false;
-       
-        $this->banco_baterias = $this->Banco_de_baterias_model->listar_banco_baterias($id);
-       
-        $this->load->view('propostas/layout-padrao-propostas', $this);
-    }
-
-
 
 
   public function success() {
