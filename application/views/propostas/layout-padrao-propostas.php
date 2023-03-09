@@ -80,7 +80,7 @@
               <td>Rendimento</td>
               <td>
               <div class="input-group mb-3">
-                  <input name="rendimento" value="<?=$this->input->get('rendimento') ?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <input name="rendimento" value="<?=$equipamento_select->rendimento?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -99,6 +99,54 @@
 
                 <?php foreach($quantidade_de_baterias AS $qdb){ ?>
                   <option value="<?=$qdb->quantidade?>" <?php if($this->input->get('numero_de_baterias') == $qdb->quantidade){echo'selected';}?>><?=$qdb->quantidade?></option>
+                <?php } ?>
+              </select>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Tensão final de descarga</td>
+              <td>
+              <select name="tensao_final_de_carga" onchange="form_submit(this)" class="custom-select form-control-border">
+                <option>Selecione</option>
+
+                <?php foreach($filtro_tensao_de_carga AS $tensao_carga){ ?>
+                  <option value="<?=$tensao_carga->valor?>" <?php if($this->input->get('tensao_final_de_carga') == $tensao_carga->valor){echo'selected';}?>><?=$tensao_carga->valor?></option>
+                <?php } ?>
+              </select>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Autonomia</td>
+              <td>
+              <select name="autonomia" onchange="form_submit(this)" class="custom-select form-control-border">
+                <option>Selecione</option>
+
+                <?php foreach($filtro_autonomia AS $autonomia){ ?>
+                  <option value="<?=$autonomia->valor?>" <?php if($this->input->get('autonomia') == $autonomia->valor){echo'selected';}?>><?=$autonomia->valor?></option>
+                <?php } ?>
+              </select>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Fator de envelhecimento</td>
+              <td>
+              <select name="fator_de_envelhecimento" onchange="form_submit(this)" class="custom-select form-control-border">
+                <option>Selecione</option>
+
+                <?php foreach($filtro_fator_de_envelhecimento AS $envelhecimento){ ?>
+                  <option value="<?=$envelhecimento->valor?>" <?php if($this->input->get('fator_de_envelhecimento') == $envelhecimento->valor){echo'selected';}?>><?=$envelhecimento->valor?></option>
                 <?php } ?>
               </select>
               </td>
