@@ -153,6 +153,37 @@
               
             </tr>
             </tbody>
+
+            <tbody>
+            <tr>
+              <td>Potência do link DC (W)</td>
+              <td>
+              <div class="input-group mb-3">
+                  <input name="potencia_link_DC_W" value="<?=$potencia_link_dc_w?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Potência do link DC c/ FE (W)</td>
+              <td>
+              <div class="input-group mb-3">
+                  <input name="potencia_link_DC_W_FE" value="<?=(float)$potencia_link_dc_w * (float)$this->input->get('fator_de_envelhecimento')?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+            
           </table>
           
         </form>
