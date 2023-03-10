@@ -80,7 +80,9 @@
               <td>Rendimento</td>
               <td>
               <div class="input-group mb-3">
-                  <input name="rendimento" value="<?=$equipamento_select->rendimento?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+              <?php if (isset($equipamento_select)): ?>
+                <input name="rendimento" value="<?=$equipamento_select->rendimento?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+              <?php endif; ?>
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -159,7 +161,7 @@
               <td>Potência do link DC (W)</td>
               <td>
               <div class="input-group mb-3">
-                  <input name="potencia_link_DC_W" value="<?=$potencia_link_dc_w?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <input name="potencia_link_DC_W" value="<?=round((float)$potencia_link_dc_w, 2)?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -174,7 +176,27 @@
               <td>Potência do link DC c/ FE (W)</td>
               <td>
               <div class="input-group mb-3">
-                  <input name="potencia_link_DC_W_FE" value="<?=(float)$potencia_link_dc_w * (float)$this->input->get('fator_de_envelhecimento')?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <input name="potencia_link_DC_W_FE" value="<?=round((float)$potencia_link_dc_w, 2) * (float)$this->input->get('fator_de_envelhecimento')?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+
+            <tbody>
+            <tr>
+              <td>Baterias CSB (01 banco de baterias)</td>
+              <td>
+              <div class="input-group mb-3">
+              <?php if (isset($bateria)): ?>
+                <input name="baterias_csb_banco_01" value="<?=$bateria->modelo?>" type="text" class="form-control" readonly>
+              <?php endif; ?>
+                  
+
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
