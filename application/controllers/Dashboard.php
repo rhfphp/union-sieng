@@ -109,7 +109,6 @@ class Dashboard extends CI_Controller {
 	public function user()
 	{
 		$user_data = $this->session->userdata();
-		print_r($user_data);
 		// Verifica se o usuário está logado
 		if (!$this->session->userdata('logged_in')) {
 			redirect('login');

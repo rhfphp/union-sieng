@@ -29,7 +29,6 @@ class Login extends CI_Controller {
                $password = $this->input->post('password');
 
                $user = $this->User_model->login($email, $password);
-				print_r($user);
                if ($user)
                {
                   $user_data = array(

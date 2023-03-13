@@ -62,7 +62,6 @@ class User_model extends CI_Model {
             unset($user['password']);
 
             return $user;
-            //print_r($user);
         }
 
     }

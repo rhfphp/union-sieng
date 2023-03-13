@@ -43,19 +43,39 @@ class Propostas extends CI_Controller {
         $numeroDeBaterias = (int)$this->input->get('numero_de_baterias');
     
         if (isset($rendimento) && $rendimento != 0 && $numeroDeBaterias != 0) {
-            @$this->potencia_link_dc_w = $potencia * 1000 * $fatorPotencia / $rendimento / $numeroDeBaterias;
-            @$this->potencia_link_dc_w_fe = $potencia_link_dc_w ;
+            @$this->potencia_link_dc_w = ((($potencia * 1000) * $fatorPotencia) / $rendimento) / $numeroDeBaterias;
+
+            $_GET['potencia_link_DC_W_FE'] = round($this->potencia_link_dc_w * (float)$this->input->get('fator_de_envelhecimento'), 2);
+
+            @$bateria = $this->input->get('potencia_link_DC_W_FE');
+            @$bateria2 = $this->input->get('potencia_link_DC_W_FE')/2;
+            @$bateria3 = $this->input->get('potencia_link_DC_W_FE')/3;
+            @$bateria4 = $this->input->get('potencia_link_DC_W_FE')/4;
+            @$bateria5 = $this->input->get('potencia_link_DC_W_FE')/5;
         } else {
             $this->potencia_link_dc_w = 0;
         }
     
         if ($this->input->get('tensao_final_de_carga') !== null || $this->input->get('potencia_link_DC_W_FE') !== null || $this->input->get('autonomia') !== null ) {
-            $this->curva_csb = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $this->input->get('potencia_link_DC_W_FE'));
-    
+            @$this->curva_csb = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $this->input->get('potencia_link_DC_W_FE'));
+            @$this->curva_csb_2 = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $bateria2);
+            @$this->curva_csb_3 = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $bateria3);
+            @$this->curva_csb_4 = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $bateria4);
+            @$this->curva_csb_5 = $this->Curvacsb_model->curva($this->input->get('autonomia'), $this->input->get('tensao_final_de_carga'), $bateria5);
+
             $bateria = null;
             if ($this->curva_csb !== null) {
                 @$this->baterias_csb_banco_01 = $this->curva_csb[0]->bateria;
+                @$this->baterias_csb_banco_02 = $this->curva_csb_2[0]->bateria;
+                @$this->baterias_csb_banco_03 = $this->curva_csb_3[0]->bateria;
+                @$this->baterias_csb_banco_04 = $this->curva_csb_4[0]->bateria;
+                @$this->baterias_csb_banco_05 = $this->curva_csb_5[0]->bateria;
+
                 @$this->bateria = $this->Curvabateria_model->listar_baterias($this->curva_csb[0]->bateria);
+                @$this->bateria2 = $this->Curvabateria_model->listar_baterias($this->curva_csb_2[0]->bateria);
+                @$this->bateria3= $this->Curvabateria_model->listar_baterias($this->curva_csb_3[0]->bateria);
+                @$this->bateria4= $this->Curvabateria_model->listar_baterias($this->curva_csb_4[0]->bateria);
+                @$this->bateria5= $this->Curvabateria_model->listar_baterias($this->curva_csb_5[0]->bateria);
             }
         }
     

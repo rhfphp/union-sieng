@@ -176,7 +176,7 @@
               <td>Potência do link DC c/ FE (W)</td>
               <td>
               <div class="input-group mb-3">
-                  <input name="potencia_link_DC_W_FE" value="<?=round((float)$potencia_link_dc_w, 2) * (float)$this->input->get('fator_de_envelhecimento')?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
+                  <input name="potencia_link_DC_W_FE" value="<?=$this->input->get('potencia_link_DC_W_FE')?>" onblur="form_submit(this)" type="number" class="form-control" readonly>
                   <div class="input-group-append">
                     <span class="input-group-text"><i class="fas fa-check"></i></span>
                   </div>
@@ -205,6 +205,82 @@
               
             </tr>
             </tbody>
+
+            <tbody>
+            <tr>
+              <td>Baterias CSB (02 banco de baterias)</td>
+              <td>
+              <div class="input-group mb-3">
+              <?php if (isset($bateria2)): ?>
+                <input name="baterias_csb_banco_02" value="<?=$bateria2->modelo?>" type="text" class="form-control" readonly>
+              <?php endif; ?>
+                  
+
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Baterias CSB (03 banco de baterias)</td>
+              <td>
+              <div class="input-group mb-3">
+              <?php if (isset($bateria3)): ?>
+                <input name="baterias_csb_banco_03" value="<?=$bateria3->modelo?>" type="text" class="form-control" readonly>
+              <?php endif; ?>
+                  
+
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Baterias CSB (04 banco de baterias)</td>
+              <td>
+              <div class="input-group mb-3">
+              <?php if (isset($bateria4)): ?>
+                <input name="baterias_csb_banco_04" value="<?=$bateria4->modelo?>" type="text" class="form-control" readonly>
+              <?php endif; ?>
+                  
+
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
+
+            <tbody>
+            <tr>
+              <td>Baterias CSB (05 banco de baterias)</td>
+              <td>
+              <div class="input-group mb-3">
+              <?php if (isset($bateria2)): ?>
+                <input name="baterias_csb_banco_05" value="<?=$bateria5->modelo?>" type="text" class="form-control" readonly>
+              <?php endif; ?>
+                  
+
+                  <div class="input-group-append">
+                    <span class="input-group-text"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </td>
+              
+            </tr>
+            </tbody>
             
           </table>
           
@@ -216,7 +292,7 @@
   <!-- /.content-wrapper -->
   
 
-<?php $this->load->view('footer') ?>
+  
 
 
 <?php if($alterado_com_sucesso){ ?>
